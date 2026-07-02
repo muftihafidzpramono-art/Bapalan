@@ -1,0 +1,1 @@
+export default class RPMGauge{constructor(){this.e=document.createElement('div');this.e.style.cssText='position:absolute;right:20px;bottom:55px;color:#0f0;font:18px Arial';document.body.appendChild(this.e);}update(r){this.e.textContent=`RPM ${r}`;}}

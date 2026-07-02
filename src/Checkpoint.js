@@ -1,0 +1,1 @@
+export default class Checkpoint{constructor(pos,r=5){this.position=pos;this.radius=r;}check(car){return car.position.distanceTo(this.position)<this.radius;}}

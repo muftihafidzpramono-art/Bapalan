@@ -1,0 +1,1 @@
+export default class EngineSound{update(speed){/* TODO: audio pitch */}}

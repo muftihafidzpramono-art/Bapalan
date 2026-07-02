@@ -1,0 +1,1 @@
+export default class Gearbox{constructor(){this.gear=1;}update(speed){this.gear=speed<20?1:speed<50?2:speed<90?3:speed<140?4:speed<180?5:6;}}

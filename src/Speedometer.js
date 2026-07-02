@@ -1,0 +1,1 @@
+export default class Speedometer{constructor(){this.e=document.createElement('div');this.e.style.cssText='position:absolute;right:20px;bottom:20px;color:#fff;font:24px Arial';document.body.appendChild(this.e);}update(v){this.e.textContent=`${v.toFixed(0)} KM/H`;}}

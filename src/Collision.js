@@ -1,0 +1,1 @@
+export default function checkCollision(car,bounds){return bounds&&bounds.containsPoint(car.position);}
