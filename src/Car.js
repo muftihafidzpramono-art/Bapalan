@@ -22,10 +22,21 @@ export class Car {
                 );
 
                 this.model.position.set(
-                    0,
-                    1,
-                    0
-                );
+    0,
+    0,
+    0
+);
+
+this.model.traverse((obj)=>{
+
+    if(obj.isMesh){
+
+        obj.castShadow=true;
+        obj.receiveShadow=true;
+
+    }
+
+});
 
                 scene.add(
                     this.model
