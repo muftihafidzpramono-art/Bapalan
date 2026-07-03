@@ -9,6 +9,7 @@ import { Track } from "./Track.js";
 import Input from "./Input.js";
 import Physics from "./Physics.js";
 import VehicleController from "./VehicleController.js";
+import FollowCamera from "./FollowCamera.js";
 
 export class Game {
 
@@ -34,12 +35,18 @@ export class Game {
 
         this.vehicle = null;
 
+        // Kamera mengikuti mobil
+        this.followCamera = new FollowCamera(
+            this.camera.camera
+        );
+
         this.initVehicle();
 
         window.addEventListener("resize", () => {
 
             this.camera.camera.aspect =
-                window.innerWidth / window.innerHeight;
+                window.innerWidth /
+                window.innerHeight;
 
             this.camera.camera.updateProjectionMatrix();
 
@@ -58,14 +65,16 @@ export class Game {
 
             if (this.car.model) {
 
-                this.physics = new Physics(
-                    this.car.model
-                );
+                this.physics =
+                    new Physics(
+                        this.car.model
+                    );
 
-                this.vehicle = new VehicleController(
-                    this.physics,
-                    this.input
-                );
+                this.vehicle =
+                    new VehicleController(
+                        this.physics,
+                        this.input
+                    );
 
                 console.log("Vehicle Ready");
 
@@ -87,35 +96,16 @@ export class Game {
 
             requestAnimationFrame(animate);
 
-            const dt = this.clock.getDelta();
+            const dt =
+                this.clock.getDelta();
 
             if (this.vehicle) {
 
                 this.vehicle.update(dt);
 
-                const target = this.car.model.position.clone();
-
-                target.y += 3;
-
-                const camPos = target.clone();
-
-                camPos.add(
-                    new THREE.Vector3(
-                        0,
-                        2,
-                        8
-                    ).applyQuaternion(
-                        this.car.model.quaternion
-                    )
-                );
-
-                this.camera.camera.position.lerp(
-                    camPos,
-                    0.08
-                );
-
-                this.camera.camera.lookAt(
-                    target
+                // Kamera mengikuti mobil
+                this.followCamera.update(
+                    this.car.model
                 );
 
             }

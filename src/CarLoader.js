@@ -1,11 +1,1 @@
-gltf.scene.traverse((obj)=>{
-
-    if(obj.isMesh){
-
-        obj.castShadow = true;
-
-        obj.receiveShadow = true;
-
-    }
-
-});
+import {GLTFLoader} from '../lib/GLTFLoader.js';export class CarLoader{constructor(s){this.s=s;this.object=null;}load(){return new Promise((a,b)=>new GLTFLoader().load('assets/car/Mcqueen/source/Lightning McQueen.glb',g=>{this.object=g.scene;this.s.add(this.object);a();},undefined,b));}}

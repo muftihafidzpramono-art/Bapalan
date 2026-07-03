@@ -1,11 +1,1 @@
-gltf.scene.traverse((obj)=>{
-
-    if(obj.isMesh){
-
-        obj.castShadow = true;
-
-        obj.receiveShadow = true;
-
-    }
-
-});
+import {GLTFLoader} from '../lib/GLTFLoader.js';export class TrackLoader{constructor(s){this.s=s;}load(){return new Promise((a,b)=>new GLTFLoader().load('assets/circuits/track.glb',g=>{this.s.add(g.scene);a();},undefined,b));}}

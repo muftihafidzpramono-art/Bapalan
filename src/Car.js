@@ -1,51 +1,109 @@
-import { GLTFLoader }
-from 'three/examples/jsm/loaders/GLTFLoader.js';
+import * as THREE from "three";
+import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
 
 export class Car {
 
-    constructor(scene){
+    constructor(scene) {
 
-        const loader =
-            new GLTFLoader();
+        this.model = null;
+
+        const loader = new GLTFLoader();
 
         loader.load(
-            '/assets/car/Mcqueen/source/Lightning McQueen.glb',
 
-            (gltf)=>{
+            "/assets/car/Mcqueen/source/Lightning McQueen.glb",
+
+            (gltf) => {
 
                 this.model = gltf.scene;
 
+                // ==========================
+                // SCALE
+                // ==========================
+
                 this.model.scale.set(
-                    1,
-                    1,
-                    1
+                    0.40,
+                    0.40,
+                    0.40
                 );
 
-                this.model.position.set(
+                // ==========================
+                // ROTASI
+                // ==========================
+                // Belakang mobil menghadap kamera
+
+                this.model.rotation.set(
+                    0,
+                    0,
+                    0
+                );
+
+                // ==========================
+                // POSISI
+                // ==========================
+
+                this.model.rotation.set(
     0,
-    0,
+    Math.PI / 2,
     0
 );
 
-this.model.traverse((obj)=>{
+                // ==========================
+                // SHADOW
+                // ==========================
 
-    if(obj.isMesh){
+                this.model.traverse((child) => {
 
-        obj.castShadow=true;
-        obj.receiveShadow=true;
+                    if (child.isMesh) {
 
-    }
+                        child.castShadow = true;
+                        child.receiveShadow = true;
 
-});
+                        if (child.material) {
 
-                scene.add(
-                    this.model
-                );
+                            child.material.side = THREE.FrontSide;
 
-                console.log(
-                    'McQueen Loaded'
-                );
+                            if ("metalness" in child.material)
+                                child.material.metalness = 0.15;
+
+                            if ("roughness" in child.material)
+                                child.material.roughness = 0.75;
+
+                            child.material.needsUpdate = true;
+
+                        }
+
+                    }
+
+                });
+
+                scene.add(this.model);
+
+                console.log("Lightning McQueen Loaded");
+
+            },
+
+            (xhr) => {
+
+                if (xhr.total) {
+
+                    console.log(
+                        "Loading Car :",
+                        Math.round(xhr.loaded / xhr.total * 100) + "%"
+                    );
+
+                }
+
+            },
+
+            (error) => {
+
+                console.error("Failed Load Car", error);
+
             }
+
         );
+
     }
+
 }
