@@ -2,58 +2,77 @@ import * as THREE from "three";
 
 export class Renderer {
 
-    constructor() {
+    constructor(){
 
         this.renderer = new THREE.WebGLRenderer({
-            antialias: true,
-            alpha: false
-        });
 
-        this.renderer.setSize(
-            window.innerWidth,
-            window.innerHeight
-        );
+            antialias:true,
+
+            powerPreference:"high-performance"
+
+        });
 
         this.renderer.setPixelRatio(
-            Math.min(window.devicePixelRatio, 2)
+
+            Math.min(window.devicePixelRatio,2)
+
         );
 
-        this.renderer.outputColorSpace =
-            THREE.SRGBColorSpace;
+        this.renderer.setSize(
 
-        this.renderer.toneMapping =
-            THREE.ACESFilmicToneMapping;
+            window.innerWidth,
 
-        this.renderer.toneMappingExposure = 1.1;
+            window.innerHeight
 
-        this.renderer.shadowMap.enabled = true;
+        );
 
-        this.renderer.shadowMap.type =
-            THREE.PCFSoftShadowMap;
+        this.renderer.shadowMap.enabled=true;
 
-        this.renderer.setClearColor(0x87CEEB);
+        this.renderer.shadowMap.type=
+
+        THREE.PCFSoftShadowMap;
+
+        this.renderer.outputColorSpace=
+
+        THREE.SRGBColorSpace;
+
+        this.renderer.toneMapping=
+
+        THREE.ACESFilmicToneMapping;
+
+        this.renderer.toneMappingExposure=1.35;
+
+        this.renderer.physicallyCorrectLights=true;
 
         document.body.appendChild(
+
             this.renderer.domElement
+
         );
 
-        window.addEventListener("resize", () => {
+        window.addEventListener(
 
-            this.renderer.setSize(
-                window.innerWidth,
-                window.innerHeight
-            );
+            "resize",
 
-        });
+            ()=>{
+
+                this.renderer.setSize(
+
+                    window.innerWidth,
+
+                    window.innerHeight
+
+                );
+
+            }
+
+        );
 
     }
 
-    render(scene, camera) {
+    render(scene,camera){
 
-        this.renderer.render(
-            scene,
-            camera
-        );
+        this.renderer.render(scene,camera);
 
     }
 

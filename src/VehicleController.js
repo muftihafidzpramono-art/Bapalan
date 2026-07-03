@@ -7,14 +7,11 @@ export default class VehicleController {
 
     }
 
-    update(deltaTime) {
+    update(dt) {
 
-        if (!this.physics) return;
-
-        this.physics.update(
-            this.input,
-            deltaTime
-        );
+        if (this.physics) {
+            this.physics.update(this.input, dt);
+        }
 
     }
 
